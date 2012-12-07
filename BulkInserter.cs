@@ -75,11 +75,12 @@ namespace Overby.Data
         /// <param name="connection">SqlConnection to use for retrieving the schema of sqlBulkCopy.DestinationTableName and for bulk insert.</param>
         /// <param name="tableName">The name of the table that rows will be inserted into.</param>
         /// <param name="bufferSize">Number of rows to bulk insert at a time. The default is 2000.</param>
+        /// <param name="bulkCopyTimeout">Number of seconds for the operation to complete before it times out. The default is 30.</param>
         /// <param name="copyOptions">Options for SqlBulkCopy.</param>
         /// <param name="sqlTransaction">SqlTransaction for SqlBulkCopy</param>
-        public BulkInserter(SqlConnection connection, string tableName, int bufferSize = DefaultBufferSize,
+        public BulkInserter(SqlConnection connection, string tableName, int bufferSize = DefaultBufferSize, int bulkCopyTimeout = 30,
                             SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, SqlTransaction sqlTransaction = null)
-            : this(connection, new SqlBulkCopy(connection, copyOptions, sqlTransaction) { DestinationTableName = tableName }, bufferSize)
+            : this(connection, new SqlBulkCopy(connection, copyOptions, sqlTransaction) { DestinationTableName = tableName, BulkCopyTimeout = bulkCopyTimeout }, bufferSize)
         {
         }
 
